@@ -28,13 +28,14 @@ Dosyalar
    Alan adın Cloudflare'deyse gerisi otomatik; değilse gösterilen DNS kaydını
    alan adı firmanın paneline ekle. HTTPS kendiliğinden gelir.
 
-3) Güncelleme
-   Cloudflare Pages'te projeni aç → Create deployment → klasörü sürükle bırak.
+3) Güncelleme (otomatik)
+   Site GitHub'daki arinozalp39-svg/baski-maliyeti deposunda duruyor ve Cloudflare'deki
+   Worker bu depoya bağlı. public/ klasörüne yapılan her değişiklik birkaç dakika içinde
+   kendiliğinden yayına girer; elle yükleme gerekmez.
 
 Haftalık fiyat güncellemesi
-   Her pazartesi Claude sana yeni bir fiyatlar.json gönderir. Klasördeki eski
-   fiyatlar.json'u onunla değiştir ve klasörü Cloudflare Pages'te
-   Create deployment ile yeniden yükle. Site yeni fiyatları kendiliğinden kullanır.
+   Her pazartesi Claude yeni fiyatları public/fiyatlar.json olarak depoya yükler,
+   site kendiliğinden güncellenir.
 
 Android Paylaş
    Android'de siteyi Chrome'da açıp "Uygulamayı yükle / Ana ekrana ekle" deyince,
