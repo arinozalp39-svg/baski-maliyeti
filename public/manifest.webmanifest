@@ -1,0 +1,52 @@
+{
+  "name": "Baskı Maliyeti Hesaplayıcı",
+  "short_name": "Baskı Maliyeti",
+  "description": "3D baskının gerçek maliyetini ve satış fiyatını hesaplar.",
+  "lang": "tr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef1f3",
+  "theme_color": "#e0661b",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "id": "./",
+  "share_target": {
+    "action": "./paylas",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "baslik",
+      "text": "metin",
+      "files": [
+        {
+          "name": "dosya",
+          "accept": [
+            "image/*",
+            "application/pdf",
+            ".pdf",
+            ".gcode",
+            ".3mf",
+            ".stl",
+            "model/stl",
+            "model/3mf",
+            "text/x.gcode",
+            "application/octet-stream"
+          ]
+        }
+      ]
+    }
+  }
+}

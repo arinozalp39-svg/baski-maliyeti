@@ -1,0 +1,10 @@
+Bu klasördeki dilimleme motoru Bambu Studio 02.07.01.62'nin (AGPL-3.0) WebAssembly derlemesidir.
+
+Bambu Studio kaynak kodu:  https://github.com/bambulab/BambuStudio/tree/v02.07.01.62
+Derleme değişiklikleri ve betikleri:  kaynak.zip (bu klasörde)
+
+bambu_slicer.wasm barındırma sınırları nedeniyle bambu_slicer.wasm.part0..2 olarak
+değiştirilmeden parçalara bölünmüştür; birleştirilince orijinal dosyanın aynısıdır.
+p/ klasöründeki yazıcı, işlem ve filament ayarları Bambu Studio'nun resmi profillerinden
+(resources/profiles/BBL) üretilmiştir. res/ klasöründeki 3 dosya Bambu Studio'nun kendi
+kaynak dosyalarıdır.

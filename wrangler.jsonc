@@ -1,0 +1,9 @@
+// Cloudflare ayarı: GitHub'a her yüklemede site kendiliğinden yayınlanır.
+// "name", Cloudflare'deki Worker'ın adıyla aynı olmalı.
+{
+  "name": "withered-salad-dde8",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public"
+  }
+}

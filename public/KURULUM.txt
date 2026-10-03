@@ -1,0 +1,56 @@
+BASKI MALİYETİ HESAPLAYICI – KURULUM
+
+Bu klasördeki dosyalar sitenin tamamı. Sunucu, veritabanı ya da hesap gerekmiyor.
+
+Dosyalar
+- index.html              Hesaplayıcının kendisi
+- fiyatlar.json           Güncel yazıcı ve filament fiyatları (her hafta yenisi gelir)
+- sw.js                   Android'de "Paylaş → Baskı Maliyeti" desteği
+- gizlilik.html           Gizlilik sayfası (en alttaki e-posta yerini doldur)
+- bbl/                    Bambu Studio dilimleme motoru ve Bambu yazıcı ayarları (silme; ~17 MB)
+- orca/                   OrcaSlicer dilimleme motoru ve yazıcı ayarları (silme; ~29 MB)
+- _headers                Motor dosyalarının tarayıcıda önbelleğe alınması için ayar
+- sunucu.json             Dilimleme sunucusunun kalıcı adresi (sunucu klasöründeki KURULUM.txt'ye bak)
+- manifest.webmanifest    "Ana ekrana ekle" için uygulama bilgisi
+- icon-192.png, icon-512.png, apple-touch-icon.png   Uygulama simgeleri
+
+1) Siteyi ücretsiz yayınla (Cloudflare Pages)
+   a. dash.cloudflare.com adresinde ücretsiz hesap aç.
+   b. Workers & Pages → Create → Pages → Upload assets.
+   c. Proje adı ver, bu klasörü (zip'ten çıkardıktan sonra) sürükle bırak → Deploy.
+   d. Site proje-adi.pages.dev adresinde yayında olur. Trafik sınırsız ve ücretsiz.
+   (Netlify'ın ücretsiz planı ayda 300 krediyle sınırlı; dilimleme motoru büyük
+   olduğu için orada site ay ortasında kapanabilir. Cloudflare'de bu sorun yok.)
+
+2) Alan adı (isteğe bağlı)
+   Alan adını Cloudflare'den ya da başka bir firmadan al.
+   Cloudflare Pages'te projen → Custom domains → Set up a custom domain.
+   Alan adın Cloudflare'deyse gerisi otomatik; değilse gösterilen DNS kaydını
+   alan adı firmanın paneline ekle. HTTPS kendiliğinden gelir.
+
+3) Güncelleme
+   Cloudflare Pages'te projeni aç → Create deployment → klasörü sürükle bırak.
+
+Haftalık fiyat güncellemesi
+   Her pazartesi Claude sana yeni bir fiyatlar.json gönderir. Klasördeki eski
+   fiyatlar.json'u onunla değiştir ve klasörü Cloudflare Pages'te
+   Create deployment ile yeniden yükle. Site yeni fiyatları kendiliğinden kullanır.
+
+Android Paylaş
+   Android'de siteyi Chrome'da açıp "Uygulamayı yükle / Ana ekrana ekle" deyince,
+   ekran görüntüleri ve G-code/3MF/STL dosyaları Paylaş menüsünden doğrudan
+   uygulamaya gönderilebilir. (Site HTTPS üzerinden açılmalı; Cloudflare bunu
+   kendiliğinden sağlar.)
+
+Dilimleme sunucusu (isteğe bağlı, ücretsiz)
+   STL/3MF'lerin Bambu Studio / OrcaSlicer ile birebir aynı süre ve gramla
+   hesaplanması için baski-sunucu.zip'teki KURULUM.txt'yi izle. Kalıcı adresi
+   sunucu.json'a {"adres": "https://sunucu.alanadin.com"} diye yazıp siteyi
+   yeniden yükle. Sunucu kapalıyken site kendi motoruyla çalışmaya devam eder.
+
+Notlar
+- Dilimleme motorları Bambu Studio, OrcaSlicer ve CuraEngine AGPL-3.0 lisanslı; sayfadaki
+  kaynak kodu bağlantılarını ve bbl/, orca/ içindeki LICENSE, NOTICE, KAYNAK, kaynak.zip
+  dosyalarını kaldırma.
+- iPhone kestirmesindeki ve Android MacroDroid'deki link artık senin alan adın
+  olmalı; kurulum ekranındaki "linki kopyala" butonu bunu kendiliğinden yapar.

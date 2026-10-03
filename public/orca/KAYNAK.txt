@@ -1,0 +1,9 @@
+Bu klasördeki dilimleme motoru OrcaSlicer 2.4.2'nin (AGPL-3.0) WebAssembly derlemesidir.
+
+Motor derlemesi ve değişiklikler: https://github.com/Hiosdra/OrcaWasm
+OrcaSlicer kaynak kodu:           https://github.com/SoftFever/OrcaSlicer/tree/v2.4.2
+Lisans:                           LICENSE.txt (AGPL-3.0), üçüncü taraf bildirimleri: NOTICE.md
+
+slicer.wasm dosyası barındırma sınırları nedeniyle slicer.wasm.part0..4 olarak
+değiştirilmeden parçalara bölünmüştür; birleştirilince orijinal dosyanın aynısıdır.
+p/ klasöründeki yazıcı ayarları OrcaSlicer'ın resmi profillerinden (resources/profiles) üretilmiştir.

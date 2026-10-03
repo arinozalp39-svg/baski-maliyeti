@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Gizlilik – Baskı Maliyeti</title>
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;600&display=swap">
+<style>
+:root{--bg:#eef1f3;--panel:#fff;--fg:#17212b;--muted:#5b6875;--line:#d6dde3;--accent:#e0661b;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#12181e;--panel:#1b232b;--fg:#e7edf2;--muted:#94a3b1;--line:#2c3843;--accent:#f58a45;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 "Instrument Sans",system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:32px 16px 64px}
+h1{font:800 32px/1.1 "Bricolage Grotesque",system-ui,sans-serif;margin:0 0 8px;text-wrap:balance}
+h2{font-size:18px;margin:28px 0 6px}
+p,li{color:var(--fg)}
+.muted{color:var(--muted);font-size:14px}
+a{color:var(--accent)}
+ul{padding-left:20px}
+</style>
+</head>
+<body>
+<main>
+  <p><a href="./">← Hesaplayıcıya dön</a></p>
+  <h1>Gizlilik</h1>
+  <p class="muted">Son güncelleme: 29 Eylül 2026</p>
+
+  <h2>Kısaca</h2>
+  <p>Baskı Maliyeti Hesaplayıcı'yı kullanmak için hesap açmana gerek yok. Ekran görüntüleri ve dilimlenmiş dosyalar kendi cihazında, tarayıcının içinde işlenir. Yalnızca dilimlenmemiş STL/3MF modelleri, dilimleme sunucusu açıksa dilimlenmek için sunucuya gönderilir ve hemen silinir.</p>
+
+  <h2>Yüklediğin dosyalar</h2>
+  <ul>
+    <li>Ekran görüntüleri ve PDF'ler cihazında yazı tanıma ile okunur.</li>
+    <li>G-code ve dilimlenmiş 3MF dosyaları cihazında okunur. Dilimlenmemiş STL ve 3MF modelleri, dilimleme sunucusu açıksa yazıcının kendi dilimleyicisiyle (Bambu Studio ya da OrcaSlicer) dilimlenmek için sunucuya gönderilir; dosya dilimleme bitince silinir, saklanmaz ve kimseyle paylaşılmaz. Sunucu kapalıysa model cihazında dilimlenir.</li>
+    <li>Sayfa kapandığında bu dosyalar bellekten silinir; hiçbir yerde saklanmaz.</li>
+  </ul>
+
+  <h2>Cihazında saklananlar</h2>
+  <p>Seçtiğin yazıcı, filament, fiyatlar ve karşılama ekranını görüp görmediğin, bir sonraki ziyarette hatırlanması için tarayıcının yerel depolamasına (localStorage) kaydedilir. Bu bilgiler cihazından çıkmaz. Tarayıcının site verilerini temizleyerek silebilirsin.</p>
+
+  <h2>Üçüncü taraf hizmetler</h2>
+  <p>Sayfa açılırken bazı kütüphaneler ve yazı tipleri şu hizmetlerden yüklenir. Bu sırada IP adresin, tarayıcı bilgin gibi teknik bilgiler bu hizmetlere iletilir:</p>
+  <ul>
+    <li>jsDelivr ve cdnjs (Cloudflare): dilimleme motoru, yazı tanıma ve dosya okuma kütüphaneleri</li>
+    <li>Google Fonts: yazı tipleri</li>
+      <li>Cloudflare Tunnel: dilimleme sunucusuna giden bağlantı (yalnızca model dosyası ve seçtiğin yazıcı/filament ayarları)</li>
+    <li>ntfy.sh: yalnızca "Bambu Studio'dan canlı al" köprüsünü kurduysan. Bambu Studio her dilimlemede baskı süresini, gramı, yazıcı, nozul, işlem ve filament adını sana özel rastgele bir kanala gönderir; site bu kanalı dinler. Model dosyası ya da G-code gönderilmez. Mesajlar ntfy.sh'de en fazla 12 saat tutulur. Kanal adını bilen herkes bu değerleri görebilir, o yüzden bağlantını paylaşma.</li>
+  </ul>
+  <p>Sitede analiz, reklam ya da takip aracı kullanılmaz.</p>
+
+  <h2>Fiyat bilgileri</h2>
+  <p>Yazıcı ve filament fiyatları, Eylül 2026'da Türkiye'deki mağazaların sitelerinden toplanmış KDV dahil ortalamalardır ve bilgi amaçlıdır. Güncel fiyat için satıcıya başvur.</p>
+
+  <h2>İletişim</h2>
+  <p>Gizlilikle ilgili soruların için: <b>[iletişim e-posta adresin]</b></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Köprü ne yapıyor? – Baskı Maliyeti</title>
+<link rel="icon" type="image/png" href="../icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{--bg:#eef1f3;--panel:#fff;--fg:#17212b;--muted:#5b6875;--line:#d6dde3;--accent:#e0661b;--good:#1f8a5b;--bad:#c0392b;--code:#f6f8fa;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#12181e;--panel:#1b232b;--fg:#e7edf2;--muted:#94a3b1;--line:#2c3843;--accent:#f58a45;--good:#4cc38a;--bad:#ff7a6b;--code:#141b21;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 "Instrument Sans",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:32px 16px 64px}
+h1{font:800 32px/1.1 "Bricolage Grotesque",system-ui,sans-serif;margin:0 0 8px;text-wrap:balance}
+h2{font-size:18px;margin:32px 0 6px}
+.muted{color:var(--muted);font-size:14px}
+a{color:var(--accent)}
+ul,ol{padding-left:20px}
+code,pre{font-family:"JetBrains Mono",ui-monospace,monospace}
+code{font-size:.88em;background:var(--code);border:1px solid var(--line);border-radius:4px;padding:1px 4px;word-break:break-word}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:620px){.two{grid-template-columns:1fr}}
+.yes b{color:var(--good)}.no b{color:var(--bad)}
+.card ul{margin:6px 0 0}
+.hash{font:600 13px "JetBrains Mono",monospace;word-break:break-all;user-select:all}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+pre.kod{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:12px 0;overflow:auto;font-size:12.5px;line-height:1.55;max-height:70vh}
+pre.kod span.s{display:block;padding:0 12px 0 0;white-space:pre}
+pre.kod span.s::before{content:attr(data-n);display:inline-block;width:3.2em;padding-right:.8em;text-align:right;color:var(--muted);user-select:none}
+pre.kod span.c{color:var(--muted)}
+pre.kod span.s.bolum{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.btn{display:inline-block;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg);text-decoration:none;font-weight:600;font-size:14px;margin:4px 6px 0 0}
+</style>
+</head>
+<body>
+<main>
+  <p><a href="../">← Hesaplayıcıya dön</a></p>
+  <h1>Bambu Studio köprüsü ne yapıyor?</h1>
+  <p class="muted">Kurmak tamamen isteğe bağlı. Bu sayfada kodun tamamı, ne yaptığı ve dosyanın sana gelenle aynı olduğunu nasıl kontrol edeceğin var.</p>
+
+  <h2>Kısaca</h2>
+  <p>Bambu Studio'nun kendi <b>İşlem Sonrası Komut Dosyaları</b> özelliği, her dilimlemeden sonra bir programı çalıştırır. Köprü bu özelliği kullanır: dilimleme bitince G-code'un başındaki özet satırlarını okur (Bambu Studio'nun ekranda gösterdiği süre ve gram orada yazar) ve bunları sana özel bir kanala gönderir. Hesaplayıcı o kanalı dinler ve sayfayı doldurur.</p>
+  <div class="two">
+    <div class="card yes"><b>Gönderdiği</b>
+      <ul><li>Baskı süresi ve filament gramı</li><li>Katman sayısı</li><li>Yazıcı, nozul, işlem ve filament ayarının adı</li><li>Dosya yolunun kısa özeti (yolun kendisi değil; aynı plakayı tanımak için)</li></ul></div>
+    <div class="card no"><b>Göndermediği / yapmadığı</b>
+      <ul><li>Model dosyası, G-code, proje dosyası</li><li>Bilgisayar adı, kullanıcı adı, dosya yolları</li><li>G-code'u değiştirmez, yalnızca ilk 64 KB'ını okur</li><li>Dilimlemeyi asla durdurmaz: hata olsa bile Bambu Studio'ya "tamam" der</li></ul></div>
+  </div>
+
+  <h2>Örnek: giden mesajın tamamı</h2>
+  <pre class="kod"><span class="s" data-n=" ">{"v":1,"sn":1334,"model_sn":1026,"g":7.21,"gramlar":[7.21],"katman":39,
+ "yazici":"Bambu Lab X2D","makine":"Bambu Lab X2D 0.4 nozzle","nozul":"0.4,0.4",
+ "islem":"0.20mm Standard @BBL X2D","filament":"\"Bambu PLA Basic @BBL X2D 0.4 nozzle\"","ftur":"PLA",
+ "plaka":"d4e80c079d86","proje":"3b0f3131f692","zaman":1790886591}</span></pre>
+
+  <h2>Dosyanın aynı olduğunu kontrol et</h2>
+  <p>Köprü dosyası <b>herkes için birebir aynıdır</b>; sana özel kanal kodu dosyanın içinde değil, yalnızca adında yazar. Bu yüzden her dosyanın parmak izi (SHA-256) aynıdır:</p>
+  <div class="card"><div class="muted">Bu sitede şu an yayınlanan dosyanın parmak izi</div><div class="hash" id="hash">hesaplanıyor…</div>
+    <div id="baglar"></div></div>
+  <p>Kendi indirdiğin dosyayı kontrol etmek için dosyanın olduğu klasörde PowerShell açıp şunu yaz; çıkan değer yukarıdakiyle aynı olmalı:</p>
+  <pre class="kod"><span class="s" data-n=" ">Get-FileHash .\baski-kopru-*.ps1</span></pre>
+  <p class="muted">VirusTotal, dosyayı 70'ten fazla antivirüs programıyla tarar. Sonuç sayfası parmak izine göre açılır; ilk kez görüyorsa dosyayı oraya kendin de yükleyebilirsin.</p>
+
+  <h2>Kurulum neyi değiştirir?</h2>
+  <table>
+    <tr><th>Yer</th><th>Kolay kurulum</th><th>Elle kurulum</th></tr>
+    <tr><td><code>%LOCALAPPDATA%\BaskiKopru\</code></td><td>Dosyanın bir kopyası, <code>kanal.txt</code> (kanal kodun), hata olursa <code>hata.log</code></td><td>Hiçbir şey</td></tr>
+    <tr><td><code>%APPDATA%\BambuStudio\system\&lt;marka&gt;\process\fdm_process_common.json</code></td><td>En üste tek satır: <code>"post_process": [...]</code>. Bütün işlem ayarları bu dosyadan türediği için her yazıcıda çalışır.</td><td>Hiçbir şey</td></tr>
+    <tr><td>Bambu Studio işlem ayarın</td><td>Değişmez</td><td>Senin yapıştırdığın satır (Diğer → İşlem Sonrası Komut Dosyaları)</td></tr>
+    <tr><td>Başlangıç klasörü</td><td><code>BaskiKopru.lnk</code>: Bambu Studio kendi profillerini güncellerse satırı oturum açılışında yeniden ekler</td><td>Hiçbir şey</td></tr>
+  </table>
+  <p><b>Kaldırmak:</b> kolay kurulumda dosyayı yeniden çalıştırıp <b>K</b> seç. Eklenen satır silinir, ayar dosyaları ilk haline döner, klasör ve kısayol silinir. Elle kurulumda satırı Bambu Studio'dan silmen yeter.</p>
+
+  <h2>Neden PowerShell ve "-ExecutionPolicy Bypass"?</h2>
+  <p>PowerShell her Windows'ta hazır gelir; ayrıca bir program kurmak gerekmez ve köprü düz yazı olduğu için herkes okuyabilir. Windows, internetten gelen betikleri varsayılan olarak çalıştırmaz. <code>-ExecutionPolicy Bypass</code> bu izni bilgisayarın genelinde değil, yalnızca o tek çalıştırma için verir. <code>-WindowStyle Hidden</code>, her dilimlemede pencere açılmasın diye.</p>
+
+  <h2>ntfy.sh nedir?</h2>
+  <p><a href="https://ntfy.sh" target="_blank" rel="noopener">ntfy.sh</a> ücretsiz ve <a href="https://github.com/binwiederhier/ntfy" target="_blank" rel="noopener">açık kaynak</a> bir bildirim servisidir. Köprü mesajı <code>https://ntfy.sh/&lt;kanal-kodun&gt;</code> adresine gönderir, site aynı adresi dinler. Kanal kodunun sonu tahmin edilemeyen 16 rastgele karakterdir ve yalnızca senin tarayıcında ve bilgisayarında durur; kodu bilen herkes süre ve gramı görebileceği için kimseyle paylaşma. Mesajlar ntfy.sh'de en fazla 12 saat tutulur.</p>
+
+  <h2>Kodun tamamı</h2>
+  <p class="muted">Aşağıdaki kod, indirdiğin dosyanın kendisidir (sayfa açılırken aynı adresten okunur). Turuncu satırlar bölüm başlarıdır.</p>
+  <table id="bolumler"></table>
+  <p><a class="btn" href="baski-kopru.ps1" download>Dosyayı olduğu gibi indir</a></p>
+  <pre class="kod" id="kod">yükleniyor…</pre>
+</main>
+<script>
+// GitHub deposu yayınlanınca buraya adresini yaz (örn. "https://github.com/kullanici/baski-maliyeti-kopru")
+const GITHUB = "https://github.com/arinozalp39-svg/baski-maliyeti-kopru";
+(async () => {
+  const kodEl = document.getElementById("kod"), hashEl = document.getElementById("hash"), baglar = document.getElementById("baglar");
+  try {
+    const r = await fetch("baski-kopru.ps1", { cache: "no-store" });
+    if (!r.ok) throw new Error(r.status);
+    const bayt = await r.arrayBuffer();
+    const h = [...new Uint8Array(await crypto.subtle.digest("SHA-256", bayt))].map(b => b.toString(16).padStart(2, "0")).join("");
+    hashEl.textContent = h.toUpperCase();
+    let b = `<a class="btn" href="https://www.virustotal.com/gui/file/${h}" target="_blank" rel="noopener">VirusTotal sonucu</a>`;
+    if (GITHUB) b += `<a class="btn" href="${GITHUB}" target="_blank" rel="noopener">GitHub deposu</a><a class="btn" href="${GITHUB}/blob/main/SHA256SUMS.txt" target="_blank" rel="noopener">GitHub'daki parmak izi</a>`;
+    baglar.innerHTML = b;
+    const satirlar = new TextDecoder().decode(bayt).replace(/\r/g, "").split("\n");
+    const esc = s => s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+    kodEl.innerHTML = satirlar.map((s, i) => {
+      const bolum = /^# \d\)/.test(s);
+      const yorum = s.indexOf("#");
+      let html = esc(s);
+      if (yorum >= 0 && !/["'`]/.test(s.slice(0, yorum))) html = esc(s.slice(0, yorum)) + `<span class="c">${esc(s.slice(yorum))}</span>`;
+      return `<span class="s${bolum ? " bolum" : ""}" data-n="${i + 1}" id="s${i + 1}">${html || " "}</span>`;
+    }).join("");
+    // Bölüm özeti: kodun içindeki "# 1) ..." başlıklarından
+    const ozet = [["Baş", 1, "Açıklama, parametreler, klasörler. Hata olursa dilimleme durmasın diye her durumda 'tamam' döner."]];
+    satirlar.forEach((s, i) => { const m = s.match(/^# (\d\)) (.*)$/); if (m) ozet.push([m[1], i + 1, m[2]]) });
+    document.getElementById("bolumler").innerHTML = "<tr><th>Bölüm</th><th>Satır</th><th>Ne yapar</th></tr>" +
+      ozet.map(([a, n, t]) => `<tr><td>${esc(a)}</td><td><a href="#s${n}">${n}</a></td><td>${esc(t)}</td></tr>`).join("");
+  } catch (e) {
+    kodEl.textContent = "Kod yüklenemedi: " + e.message;
+    hashEl.textContent = "hesaplanamadı";
+  }
+})();
+</script>
+</body>
+</html>
